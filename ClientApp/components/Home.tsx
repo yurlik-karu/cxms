@@ -1,10 +1,37 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { Alert, Button } from 'reactstrap';
+//import ApiHelper from './../ApiHelper';
+import axios, { AxiosInstance, AxiosPromise, AxiosRequestConfig } from "axios"
 
-export class Home extends React.Component<RouteComponentProps<{}>, {}> {
+interface HomeInterface {
+    sellOrders: any;
+}
+
+export class Home extends React.Component<RouteComponentProps<{}>, HomeInterface> {
+    getSellOrders() {
+        var config = {
+            headers: {'Access-Control-Allow-Origin' : '*'}
+          };
+        axios.get('https://c-cex.com/t/api_pub.html?a=getorderbook&market=btc-usd&type=sell&depth=100', config).then(response => {
+            this.setState({ sellOrders: (response.data || []) });
+        });
+    }
+
+    componentDidMount() {
+        this.getSellOrders();
+    }
+
+    constructor(props: any) {
+        super(props);
+        this.state = { sellOrders: [] };
+    }
+
     public render() {
         return <div>
             <h1>Hello, world!</h1>
+            <Alert>Hello from alert</Alert>
+            <Button color="danger">Ok</Button>
             <p>Welcome to your new single-page application, built with:</p>
             <ul>
                 <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
