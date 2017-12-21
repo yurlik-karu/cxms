@@ -2,13 +2,29 @@ import axios, { AxiosInstance, AxiosPromise, AxiosRequestConfig } from "axios"
 //import {NotificationHandler} from "../components/ToastNotification";
 //import { LoadingComponent } from '../components/Loading';
 
+
+export interface OrderInfoInterface {
+    Quantity: number,
+    Rate: number,
+}
+export interface OrderInfoResultInterface {
+    buy: OrderInfoInterface[],
+    sell: OrderInfoInterface[],
+}
+
+export interface OrderInfoSetInterface {
+    success: boolean,
+    message: string,
+    result: OrderInfoResultInterface,
+}
+
 class ApiHeaders {
     [key: string]: string | number;
 }
 type AxiosMethodDefinition = (url: string, data?: any, config?: AxiosRequestConfig) => AxiosPromise;
 type AxiosMethodChooser = (instance: AxiosInstance) => AxiosMethodDefinition;
 
-export default class ApiHelper {
+export class ApiHelper {
 
     private static callMethod(methodChooser: AxiosMethodChooser, url: string, data?: any, responseType: string = "json"): AxiosPromise {
         const instance = this.getInstance(responseType);
