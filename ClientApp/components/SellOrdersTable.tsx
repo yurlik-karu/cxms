@@ -28,16 +28,16 @@ export class SellOrdersTable extends React.Component<{}, OrderInfoSetInterface> 
     render() {
         return <div>
             <Row>
+                <Col sm={4}>Price</Col>
                 <Col sm={4}>Quantity</Col>
-                <Col sm={4}>Rate</Col>
-                <Col sm={4}>Rate*Quantity</Col>
+                <Col sm={4}>Amount</Col>
             </Row>
             {this.state.result.sell.map(t => {
                 return <Row>
+                    <Col sm={4}>{t.Rate.toFixed(8)}</Col>
                     <Col sm={4}>{t.Quantity}</Col>
-                    <Col sm={4}>{t.Rate} </Col>
                     <Col sm={4}>{t.Rate * t.Quantity} </Col>
-                </Row>                
+                </Row>
             })}
         </div>
     }
