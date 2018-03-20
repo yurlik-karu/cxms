@@ -16,7 +16,8 @@ namespace cxms.Controllers
         {
             using (var client = new System.Net.WebClient())
             {
-                var datasell = await client.DownloadDataTaskAsync(new Uri("https://c-cex.com/t/api_pub.html?a=getorderbook&market=btc-usd&type=sell&depth=100"));
+                var endpoint = "https://c-cex.com/t/api_pub.html?a=getorderbook&market=btc-usd&type=sell&depth=100";
+                var datasell = await client.DownloadDataTaskAsync(new Uri(endpoint));
                 return Ok(System.Text.Encoding.ASCII.GetString(datasell));
             }
         }
